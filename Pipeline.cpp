@@ -28,9 +28,7 @@ void Pipeline::transform(){
 }
 
 
-void Pipeline::load(){
-    stage =4;
-}
+
 
 
 Pipeline::Pipeline(ConnectorFactory* connectorFactory){
@@ -65,7 +63,7 @@ void Pipeline::addStep(Transformation* t){
 RunCheckpoint* Pipeline::createCheckpoint(){
     return new RunCheckpoint(stage, records);
 }
-void Pipeline::restore(RunCheckpoint*){
+void Pipeline::restore(RunCheckpoint* cp){
     if (cp != nullptr) {
         stage = cp->getStage();
         records = cp->getRecords();
