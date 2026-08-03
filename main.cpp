@@ -10,25 +10,24 @@
 
 int main(){
 
-TransformationRegistry registry = new TransformationRegistry();
+TransformationRegistry* registry = new TransformationRegistry();
 
 
-DeduplicateStep d = new DeduplicateStep();
-registry.registerStep("dedup", d );
+DeduplicateStep* d = new DeduplicateStep();
+registry->registerStep("dedup", d );
 
-AggregateByRegionStep a = new AggregateByRegionStep();
-registry.registerStep("aggregate", a );
+AggregateByRegionStep* a = new AggregateByRegionStep();
+registry->registerStep("aggregate", a );
 
 ConnectorFactory* cf = new PostgresFactory();
 
-BatchPipeline bp = new BatchPipeline(cf);
+BatchPipeline* bp = new BatchPipeline(cf);
 
-bp.addStep(registry.create("dedup"));
-bp.addStep(registry.create("aggregate"));
+bp->addStep(registry->create("dedup"));
+bp->addStep(registry->create("aggregate"));
 
 
 
 
     return 0;
 }
-
