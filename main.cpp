@@ -19,6 +19,12 @@ registry.registerStep("dedup", d );
 AggregateByRegionStep a = new AggregateByRegionStep();
 registry.registerStep("aggregate", a );
 
+ConnectorFactory* cf = new PostgresFactory();
+
+BatchPipeline bp = new BatchPipeline(cf);
+
+bp.addStep(registry.create("dedup"));
+bp.addStep(registry.create("aggregate"));
 
 
 
