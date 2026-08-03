@@ -6,8 +6,14 @@
 
 
 Transformation::Transformation(std::string name){
- name = name;
+ this->name = name;
 };
+
+Transformation::~Transformation(){
+   
+   };
+   
+
 
 std::string Transformation::getName(){
     return name;
@@ -16,11 +22,11 @@ std::string Transformation::getName(){
 
 
  Transformation* DeduplicateStep::clone(){ //           ?????
-    
+    return new DeduplicateStep(*this);
 }
 
 Transformation* AggregateByRegionStep::clone(){ //             ????
-    
+    return new AggregateByRegionStep(*this);
 }
 
   vector<std::string> DeduplicateStep::apply(vector<std::string> vec){

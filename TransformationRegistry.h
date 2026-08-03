@@ -16,6 +16,6 @@ public:
     Transformation* create(std::string);
     ~TransformationRegistry();
 
-}
+};
 
 #endif

@@ -6,33 +6,40 @@
 #include <vector>
 #include "Transformation.h"
 #include "ConnectorFactory.h"
+#include "RunCheckpoint.h"
 
 
 
 class Pipeline{
 protected:
 ConnectorFactory* factory;
-vector<Transformation*> steps;
+std::vector<Transformation*> steps;
 int stage;
-vector<std::string> records;
+std::vector<std::string> records;
 
 void connect();
-void extract();
+virtual void extract() =0;
 void transform();
-void load();
+virtual void load() =0;
 
 public:
 Pipeline(ConnectorFactory*);
+~Pipeline();
+
 void run();
 void addStep(Transformation*);
+
+
 RunCheckpoint* createCheckpoint();
 void restore(RunCheckpoint*);
-~Pipeline();
+
 
 
 };
 
 class BatchPipeline: public Pipeline{
+    public:
+    BatchPipeline(ConnectorFactory* factory) : Pipeline(factory) {}
     protected:
     void extract();
     void load();
@@ -40,6 +47,8 @@ class BatchPipeline: public Pipeline{
 };
 
 class StreamingPipeline: public Pipeline{
+    public:
+    StreamingPipeline(ConnectorFactory* factory) : Pipeline(factory) {}
     protected:
     void extract();
     void load();
