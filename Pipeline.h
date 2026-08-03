@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include "Transformation.h"
+#include "ConnectorFactory.h"
+
 
 
 class Pipeline{
